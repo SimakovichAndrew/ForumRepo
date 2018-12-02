@@ -1,16 +1,24 @@
 ﻿using ForumMVC.Domain.Entities;
+using ForumMVC.Domain.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.Owin;
+using System.Web;
 
 namespace ForumMVC.Domain.EF
 {
     public class DbInitializer : DropCreateDatabaseIfModelChanges<EFDbContext>
     {
+        private ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+        }
+
         protected override void Seed(EFDbContext db)
         {
             //db.ClientProfiles.Add(new ClientProfile { Name = "Вася", Address = "vasya@mail.ru"});
@@ -22,7 +30,7 @@ namespace ForumMVC.Domain.EF
             var role2 = new IdentityRole { Name = "moderator" };
             var role3 = new IdentityRole { Name = "user" };
             // добавляем роли в бд
-            roleManager.Create(role1);
+            roleManager.Create(role1, db);
             roleManager.Create(role2);
             roleManager.Create(role3);
             // создаем администратора
