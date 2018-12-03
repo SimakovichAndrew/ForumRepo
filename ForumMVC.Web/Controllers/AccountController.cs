@@ -1,7 +1,13 @@
-﻿using ForumMVC.BLL.Interfaces;
+﻿using ForumMVC.BLL.DTO;
+using ForumMVC.BLL.Infrastructure;
+using ForumMVC.BLL.Interfaces;
+using ForumMVC.Web.Models;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -87,7 +93,7 @@ namespace ForumMVC.Web.Controllers
                 {
                     //Email = model.Email,
                     Password = model.Password,
-                    // Address = model.Address,
+                   // Address = model.Address,
                     UserName = model.Name,
                     Role = "user"
                 };

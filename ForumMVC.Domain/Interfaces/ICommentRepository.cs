@@ -9,6 +9,7 @@ namespace ForumMVC.Domain.Repositories
 {
     public interface ICommentRepository
     {
-        IQueryable<Comment> Comments { get; }
+        /*IQueryable*/
+        IEnumerable<Comment> Comments { get; }
     }
 }

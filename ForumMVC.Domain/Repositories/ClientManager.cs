@@ -1,6 +1,5 @@
-﻿using ForumMVC.Domain.EF;
+﻿using ForumMVC.Domain.Entities;
 using ForumMVC.Domain.Interfaces;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace ForumMVC.Domain.Repositories
             Database = db;
         }
 
-        public void Create(IdentityUser item)
+        public void Create(ClientProfile item)
         {
             Database.ClientProfiles.Add(item);
             Database.SaveChanges();

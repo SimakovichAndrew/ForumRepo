@@ -6,59 +6,46 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumMVC.Domain.Interfaces;
 using ForumMVC.Domain.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace ForumMVC.Domain.EF
+namespace ForumMVC.Domain.Repositories
 {
-   public class EFTopicRepository: IRepository<Topic> //ITopicRepositoryIRepository<Topic>
+   public class EFTopicRepository: IRepository<Topic>// ITopicRepository
     {
-        private EFDbContext dbTopicContext = new EFDbContext();
-        //public IQueryable<Topic> Topics => throw new NotImplementedException();
+        private EFDbContext db;
 
-        public IQueryable<Topic> Topics/*Products*/ => dbTopicContext.Topics;
-
-        public IEnumerable<IdentityUser> All => throw new NotImplementedException();
-
-        public EFTopicRepository (EFDbContext context)
+        public EFTopicRepository(EFDbContext context)
         {
-            dbTopicContext = context;
-        }
-        public void Create(Topic item)
-        {
-            dbTopicContext.Topics.Add(item);
+            this.db = context;
         }
 
-        public void Delete(int id)
+        public IEnumerable<Topic> GetAll()
         {
-            Topic doctor = dbTopicContext.Topics.Find(id);
-            if (doctor != null)
-                dbTopicContext.Topics.Remove(doctor);
-        }
-
-        public IQueryable<Topic> Find(Func<Topic, bool> predicate)
-        {
-            return dbTopicContext.Topics.Where(predicate).AsQueryable();/*ToList*/
+            return db.Topics.Include(o => o.Comment);
         }
 
         public Topic Get(int id)
         {
-            return dbTopicContext.Topics.Find(id);
+            return db.Topics.Find(id);
         }
 
-        public IQueryable<Topic> GetAll()
+        public void Create(Topic topic)
         {
-            return dbTopicContext.Topics;
+            db.Topics.Add(topic);
         }
 
-        public void Update(Topic item)
+        public void Update(Topic topic)
         {
-            dbTopicContext.Entry(item).State = EntityState.Modified;
+            db.Entry(topic).State = EntityState.Modified;
         }
-
-
-        //public IQueryable<Topic> Topics
-        //{
-        //    get { return dbTopicContext.Topics; }
-        //}
+        public IEnumerable<Topic> Find(Func<Topic, Boolean> predicate)
+        {
+            return db.Topics.Include(o => o.Comment).Where(predicate).ToList();
+        }
+        public void Delete(int id)
+        {
+            Topic topic = db.Topics.Find(id);
+            if (topic != null)
+                db.Topics.Remove(topic);
+        }
     }
 }

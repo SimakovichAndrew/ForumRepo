@@ -1,4 +1,4 @@
-﻿using ForumMVC.BLL.Ifrastructure;
+﻿using ForumMVC.BLL.Infrastructure;
 using ForumMVC.Web.Infrastructure;
 using Ninject;
 using Ninject.Modules;

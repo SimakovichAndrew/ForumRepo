@@ -6,59 +6,48 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumMVC.Domain.Interfaces;
 using ForumMVC.Domain.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace ForumMVC.Domain.EF
+namespace ForumMVC.Domain.Repositories
 {
-   public class EFCommentRepository : IRepository<Comment> //ICommentRepository 
+   public class EFCommentRepository :IRepository<Comment> // ICommentRepository
     {
-        private EFDbContext dbCommentContext = new EFDbContext();
-        public IQueryable<Comment> Comments => dbCommentContext.Comments;
-
-        public IEnumerable<IdentityUser> All => throw new NotImplementedException();
-
-        // public IEnumerable<ClientProfile> All => dbCommentContext.Comments.AsEnumerable();//throw new NotImplementedException();
+        private EFDbContext db;
 
         public EFCommentRepository(EFDbContext context)
         {
-            dbCommentContext = context;
-        }
-        public void Create(Comment item)
-        {
-            dbCommentContext.Comments.Add(item);
+            this.db = context;
         }
 
-        public void Delete(int id)
+        public IEnumerable<Comment> GetAll()
         {
-            Comment comment = dbCommentContext.Comments.Find(id);
-            if (comment != null)
-                dbCommentContext.Comments.Remove(comment);
-        }
-
-        public IQueryable<Comment> Find(Func<Comment, bool> predicate)
-        {
-            return dbCommentContext.Comments.Where(predicate).AsQueryable();
+            return db.Comments;
         }
 
         public Comment Get(int id)
         {
-            return dbCommentContext.Comments.Find(id);
+            return db.Comments.Find(id);
         }
 
-        public IQueryable<Comment> GetAll()
+        public void Create(Comment com)
         {
-            return dbCommentContext.Comments;
+            db.Comments.Add(com);
         }
 
-        public void Update(Comment item)
+        public void Update(Comment com)
         {
-            dbCommentContext.Entry(item).State = EntityState.Modified;
+            db.Entry(com).State = EntityState.Modified;
         }
 
+        public IEnumerable<Comment> Find(Func<Comment, Boolean> predicate)
+        {
+            return db.Comments.Where(predicate).ToList();
+        }
 
-        //public IQueryable<Comment> Comments
-        //{
-        //    get { return dbCommentContext.Comments; }
-        //}
+        public void Delete(int id)
+        {
+            Comment book = db.Comments.Find(id);
+            if (book != null)
+                db.Comments.Remove(book);
+        }
     }
 }

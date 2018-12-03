@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ForumMVC.Domain.Interfaces
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T :class
 
     {
         //Здесь используется интерфейс IQueryable<T>, который позволяет получить последовательность
@@ -15,13 +15,14 @@ namespace ForumMVC.Domain.Interfaces
         //извлекать.Класс, который использует интерфейс IProductRepository, может получить объекты
         //Product, не зная того, где они содержатся или каким образом будут ему поставлены
         //IQueryable<T> Products { get; }
-        IEnumerable<IdentityUser> All { get; }
-        /*IEnumerable*/
-        IQueryable<T> GetAll();
+      //  IEnumerable<IdentityUser> All { get; }
+        /*IQueryable */
+        IEnumerable<T> GetAll();
         T Get(int id);
-        /*IEnumerable*/
-        IQueryable<T> Find(Func<T, Boolean> predicate);
+        /*IQueryable*/
+        IEnumerable<T> Find(Func<T, Boolean> predicate);
         void Create(T item);
+       // void Add(string item);
         void Update(T item);
         void Delete(int id);
         //  object Select(Func<object, object> p);

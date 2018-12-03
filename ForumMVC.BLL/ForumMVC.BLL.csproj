@@ -64,20 +64,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\CommentDTO.cs" />
-    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\TopicDTO.cs" />
-    <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
-    <Compile Include="Interfaces\IRecordService.cs" />
-    <Compile Include="Interfaces\IServiceCreator.cs" />
+    <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="MapperProfiles\CommentDTOProfile.cs" />
     <Compile Include="MapperProfiles\CommentProfile.cs" />
     <Compile Include="MapperProfiles\TopicProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\RecordService.cs" />
-    <Compile Include="Service\ServiceCreator.cs" />
-    <Compile Include="Service\UserService.cs" />
+    <Compile Include="Service\OrderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
