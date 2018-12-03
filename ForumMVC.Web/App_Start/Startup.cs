@@ -1,9 +1,14 @@
 ﻿using ForumMVC.BLL.Interfaces;
-using ForumMVC.Domain.
+using ForumMVC.BLL.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 [assembly: OwinStartup(typeof(ForumMVC.Web.App_Start.Startup))]
 
@@ -44,8 +49,6 @@ namespace ForumMVC.Web.App_Start
         public void Configuration(IAppBuilder app)
         {
             app.CreatePerOwinContext<IUserService>(CreateUserService);
-            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
-
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -59,3 +62,5 @@ namespace ForumMVC.Web.App_Start
         }
     }
 }
+
+    

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ForumMVC.BLL.Service
 {
-    public class ServiceCreator : IServiceCreator
+    public class ServiceCreator:IServiceCreator
     {
         public IUserService CreateUserService(string connection)
         {

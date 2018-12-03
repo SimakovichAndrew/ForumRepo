@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ForumMVC.BLL.Interfaces;
+using ForumMVC.BLL.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +15,35 @@ namespace ForumMVC.Web.Controllers
         {
             return View();
         }
+        IOrderService recordService;
+
+        public NavController(IOrderService repo)
+        {
+            recordService = repo;
+        }
+        public PartialViewResult Menu(string topicname = null)
+        {
+            ViewBag.SelectTopic = topicname;
+            IEnumerable<string> topic = recordService.GetTopics()
+             .Select(x => x.TopicName)
+             .Distinct()
+             .OrderBy(x => x);
+            return PartialView(topic);
+        }
+
+
+        //public string Menu()
+        //{
+        //    return "Здесь будет меню";
+        //}
+
+
+        //// GET: Nav
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
+
     }
 }

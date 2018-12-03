@@ -12,7 +12,7 @@ namespace ForumMVC.Web.Infrastructure
     {
         public override void Load()
         {
-            Bind<IRecordService>().To<RecordService>();
+            Bind<IOrderService>().To<OrderService>();
         }
     }
 }

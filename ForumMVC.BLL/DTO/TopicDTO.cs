@@ -1,4 +1,9 @@
-﻿using System;
+﻿using ForumMVC.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ForumMVC.BLL.DTO
 {
@@ -9,6 +14,7 @@ namespace ForumMVC.BLL.DTO
         public string Content { get; set; }
         public DateTime DateCreated { get; set; }
         public string TopicAdmin { get; set; }
-
+        public int CommentionID { get; set; }
+        public Comment Comment { get; set; }
     }
 }

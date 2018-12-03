@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumMVC.BLL.Ifrastructure
+namespace ForumMVC.BLL.Infrastructure
 {
     public class ServiceModule : NinjectModule
     {
-        string connectionString;
+        private string connectionString;
         public ServiceModule(string connectionString)
         {
             this.connectionString = connectionString;
@@ -19,7 +19,7 @@ namespace ForumMVC.BLL.Ifrastructure
 
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<IdentityUnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument(connectionString);
         }
     }
 }

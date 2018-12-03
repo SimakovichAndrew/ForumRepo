@@ -1,11 +1,19 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using ForumMVC.Domain.Repositories;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace ForumMVC.Domain.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser :IdentityUser
     {
 
-        public virtual /*ClientProfile*/IdentityUser ClientProfile { get; set; }
-        //public ApplicationUserManager(IUserStore<IdentityUser> store)
+        public virtual ClientProfile ClientProfile { get; set; }
+        //public ApplicationUserManager (IUserStore<IdentityUser> store)
         //    : base(store)
         //{
         //}

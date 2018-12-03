@@ -4,7 +4,6 @@ using ForumMVC.BLL.Interfaces;
 using ForumMVC.Domain.Entities;
 using ForumMVC.Domain.Interfaces;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +22,18 @@ namespace ForumMVC.BLL.Service
             Database = uow;
         }
 
-        public async Task<OperationDetails> CreateUser(/*string userName, string password,*/ IdentityUser userDto)
+        public async Task<OperationDetails> CreateUser(/*string userName, string password,*/ UserDTO userDto)
         {
             /*ApplicationUser*/
-            var user = await Database.UserManager.FindByEmailAsync(userDto.PasswordHash/*Email*/);//await Database.UserManager.FindByNameAsync(userDto.Password);
+            var user =  await Database.UserManager.FindByEmailAsync(userDto.Password/*Email*/);//await Database.UserManager.FindByNameAsync(userDto.Password);
             if (user == null)
             {
                 user = new ApplicationUser { /*Email*/PasswordHash = userDto.Password, UserName = userDto.UserName/*.Password*/ };
                 await Database.UserManager.CreateAsync(user, userDto.Password);
                 // добавляем роль
-                // await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
-                // создаем профиль клиента
-                IdentityUser clientProfile = new IdentityUser { Id = user.Id, /*Address = userDto.Address, */UserName = userDto.UserName };
+               // await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
+               // создаем профиль клиента
+               ClientProfile clientProfile = new ClientProfile { Id = user.Id, /*Address = userDto.Address, */Name = userDto.UserName };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Регистрация успешно пройдена", "");
@@ -50,8 +49,7 @@ namespace ForumMVC.BLL.Service
         {
             ClaimsIdentity claim = null;
             // находим пользователя
-            /*  ApplicationUser*/
-            var user = await Database.UserManager.FindAsync(userDto.UserName, userDto.Password);
+          /*  ApplicationUser*/var user = await Database.UserManager.FindAsync(userDto.UserName, userDto.Password);
             // авторизуем его и возвращаем объект ClaimsIdentity
             if (user != null)
                 claim = await Database.UserManager.CreateIdentityAsync(user,
@@ -80,6 +78,9 @@ namespace ForumMVC.BLL.Service
             Database.Dispose();
         }
 
+       
 
-
+       
     }
+}
+

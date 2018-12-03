@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ForumMVC.BLL.MapperProfiles
 {
-    public class CommentProfile : Profile
+    public class CommentProfile:Profile
     {
         public CommentProfile()
         {

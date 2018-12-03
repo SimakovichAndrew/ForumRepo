@@ -1,31 +1,27 @@
-﻿using ForumMVC.Domain.Entities;
+﻿using System.Data.Entity;
+using ForumMVC.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ForumMVC.Domain.EF
+
+namespace ForumMVC.Domain.Repositories
 {
-    public class EFDbContext : IdentityDbContext<ApplicationUser>
+    public class EFDbContext : DbContext //IdentityDbContext<ApplicationUser>
     {
-        public EFDbContext() : base("EFDbContext")
+        public EFDbContext(string connectionString) :  base(connectionString/*"EFDbContext"*/)
         {
 
         }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<IdentityUser> ClientProfiles { get; set; }
+        //public DbSet<ClientProfile> ClientProfiles { get; set; }
 
         static EFDbContext()
         {
             Database.SetInitializer(new DbInitializer());
         }
-        public static EFDbContext Create()
+        public static EFDbContext Create(string connectionString)
         {
-            return new EFDbContext();
+            return new EFDbContext(connectionString);
         }
 
         //public void Dispose()

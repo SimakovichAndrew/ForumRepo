@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ForumMVC.Domain.Entities;
 
 namespace ForumMVC.Domain.Entities
 {
@@ -13,8 +16,9 @@ namespace ForumMVC.Domain.Entities
         public string ComContent { get; set; }
         public DateTime ComTime { get; set; }
         public string TopicName { get; set; }
+        public int TopicId { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        //public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual Topic Topic { get; set; }
     }
 }
